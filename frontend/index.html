@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="検索結果から必要なリンクをすばやくコピーする検索ツール" />
+    <title>Kazo-Hub | Search & Copy</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="/app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="hero">
+        <p class="eyebrow"><span class="eyebrow-dot"></span>SEARCH &amp; COPY TOOL</p>
+        <h1>Kazo<span>-Hub</span></h1>
+        <p class="lead">検索結果から必要なリンクを、すばやくコピーするシンプルな検索ツールです。</p>
+      </header>
+
+      <form id="search-form" class="search-box">
+        <label class="sr-only" for="search-query">検索語</label>
+        <input id="search-query" name="query" type="search" maxlength="120" placeholder="検索語を入力" autocomplete="off" required />
+        <button id="search-button" type="submit"><span class="button-icon">⌕</span><span id="button-label">検索する</span></button>
+      </form>
+      <div class="notes">
+        <p><span>✓</span>検索結果の表示用メタデータとサムネイルのみを扱います。</p>
+        <p><span>i</span>カードをクリックすると URL をコピーできます。</p>
+      </div>
+
+      <section id="copied-panel" class="copied-panel" hidden aria-live="polite">
+        <div class="copied-mark">✓</div>
+        <div>
+          <p class="copied-label">COPIED</p>
+          <h2>URLをコピーしました</h2>
+          <p id="copied-url" class="copied-url"></p>
+        </div>
+      </section>
+
+      <section id="status" class="status" aria-live="polite">
+        <div id="empty-state" class="empty-state">
+          <div class="empty-icon">⌕</div>
+          <h2>検索してはじめる</h2>
+          <p>キーワードを入力すると、結果がここに表示されます。</p>
+        </div>
+      </section>
+
+      <footer><span>Kazo-Hub</span><span>Public metadata search</span></footer>
+    </main>
+  </body>
+</html>
