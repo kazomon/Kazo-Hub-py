@@ -1,29 +1,20 @@
-# Kazo-Hub Python API
+# Kazo-Hub Python
 
-This directory contains a local-only Python replacement for the current TypeScript backend. It does not modify the React frontend or the GitHub repository.
+Kazo-Hub is a FastAPI backend with a dependency-light HTML frontend. This Manus WebDev project runs the Python app from the root `Dockerfile` and serves both the API and frontend from one process.
 
-## Run locally
-
-```bash
-cd backend-python
-python3 -m venv .venv
-. .venv/bin/activate
-python -m pip install -r requirements.txt
-uvicorn app:app --reload --port 3000
-```
-
-Endpoints:
-
-| Method | Path | Purpose |
-|---|---|---|
-| `GET` | `/api/health` | Health check |
-| `GET` | `/api/search?query=...&page=1` | Search public result metadata |
-| `GET` | `/api/thumbnail?url=...` | Proxy allowlisted thumbnail URLs |
-
-The search route checks `robots.txt` before fetching results. The thumbnail proxy only allows HTTPS URLs hosted on `phncdn.com` or its subdomains and limits responses to 5 MiB.
-
-## Test
+## Local development
 
 ```bash
-python -m unittest test_app.py
+python3 -m pip install -r requirements.txt
+python3 -m uvicorn app:app --reload --port 3000
 ```
+
+Open `http://localhost:3000/`.
+
+## API
+
+- `GET /api/health` — health check
+- `GET /api/search?query=...&page=1` — public search metadata
+- `GET /api/thumbnail?url=...` — allowlisted thumbnail proxy
+
+The search route checks `robots.txt` first. The thumbnail proxy only accepts HTTPS URLs from `phncdn.com` and its subdomains and limits responses to 5 MiB.

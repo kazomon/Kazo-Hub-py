@@ -97,7 +97,16 @@ form.addEventListener('submit', async (event) => {
   copiedPanel.hidden = true;
   try {
     const response = await fetch(`/api/search?${new URLSearchParams({ query, page: '1' })}`);
-    const payload = await response.json();
+    const contentType = response.headers.get('content-type') || '';
+    const responseText = await response.text();
+    let payload = null;
+    if (contentType.includes('application/json')) {
+      try { payload = JSON.parse(responseText); } catch { payload = null; }
+    }
+    if (!payload) {
+      const statusText = response.status ? `（HTTP ${response.status}）` : '';
+      throw new Error(`検索サーバーが一時的に応答できません。時間を置いて再試行してください。${statusText}`);
+    }
     if (!response.ok) throw new Error(payload.detail || '検索結果を取得できませんでした。');
     renderResults(payload);
   } catch (error) {
